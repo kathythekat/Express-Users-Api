@@ -1,5 +1,4 @@
 const fsP = require("fs").promises;
-const { NotFoundError } = require("./errorHandling");
 
 class User {
   static async getUsersArray() {
@@ -20,15 +19,8 @@ class User {
     }
   }
 
-  static async getUserByName(name) {
+  static async editUser(idx, newName) {
     const usersArr = await this.getUsersArray();
-    console.log(usersArr);
-    return usersArr.find((user) => user.name === name);
-  }
-
-  static async editUser(prevName, newName) {
-    const usersArr = await this.getUsersArray();
-    const idx = usersArr.findIndex((user) => user.name === prevName);
     usersArr[idx].name = newName;
     const usersJSON = JSON.stringify({ users: usersArr });
     try {
